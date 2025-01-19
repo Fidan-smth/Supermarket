@@ -33,20 +33,25 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label label8;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Username = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.login_button1 = new System.Windows.Forms.Button();
             this.SelectRole = new System.Windows.Forms.ComboBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -85,7 +90,6 @@
             label6.Size = new System.Drawing.Size(125, 27);
             label6.TabIndex = 6;
             label6.Text = "Username";
-            label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -132,7 +136,6 @@
             this.label1.Size = new System.Drawing.Size(145, 34);
             this.label1.TabIndex = 1;
             this.label1.Text = "Welcome";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -174,18 +177,18 @@
             this.Password.Size = new System.Drawing.Size(203, 32);
             this.Password.TabIndex = 9;
             // 
-            // button1
+            // login_button1
             // 
-            this.button1.BackColor = System.Drawing.Color.ForestGreen;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(465, 294);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 41);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.login_button1.BackColor = System.Drawing.Color.ForestGreen;
+            this.login_button1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.login_button1.ForeColor = System.Drawing.Color.Transparent;
+            this.login_button1.Location = new System.Drawing.Point(465, 294);
+            this.login_button1.Name = "login_button1";
+            this.login_button1.Size = new System.Drawing.Size(180, 41);
+            this.login_button1.TabIndex = 10;
+            this.login_button1.Text = "Login";
+            this.login_button1.UseVisualStyleBackColor = false;
+            this.login_button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SelectRole
             // 
@@ -200,15 +203,39 @@
             this.SelectRole.Size = new System.Drawing.Size(203, 29);
             this.SelectRole.TabIndex = 12;
             this.SelectRole.Text = "Select role";
+            this.SelectRole.SelectedIndexChanged += new System.EventHandler(this.SelectRole_SelectedIndexChanged_1);
             // 
-            // Form1
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(440, 51);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(61, 62);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 13;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(243, 115);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 14;
+            this.pictureBox3.TabStop = false;
+            // 
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.SelectRole);
             this.Controls.Add(label8);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.login_button1);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.Username);
             this.Controls.Add(label7);
@@ -220,11 +247,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,8 +267,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Username;
         private System.Windows.Forms.TextBox Password;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button login_button1;
         private System.Windows.Forms.ComboBox SelectRole;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

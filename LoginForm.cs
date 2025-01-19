@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Supermarket;
 
 namespace SuperMarket_Management
 {
@@ -18,7 +19,8 @@ namespace SuperMarket_Management
             InitializeComponent();
         }
         public static string SellerName = "";
-        SqlConnection Con = new SqlConnection(@"Data Source=MSI\SQLEXPRESS;Initial Catalog=SuperMarket_;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=MSI\SQLEXPRESS;Initial Catalog=Supermarket;Integrated Security=True");
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -38,7 +40,7 @@ namespace SuperMarket_Management
                     {
                         if (Username.Text == "Admin" && Password.Text == "Admin")
                         {
-                            Form2 prod = new Form2();
+                            ProductForm prod = new ProductForm();
                             prod.Show();
                             this.Hide();
                         }
@@ -49,28 +51,27 @@ namespace SuperMarket_Management
                     }
                     else
                     {
-                        Con.Open(); // Open the connection
+                        Con.Open(); 
                         string query = "SELECT COUNT(*) FROM SellerTable WHERE SellerName = @SellerName AND SellerPassword = @SellerPassword";
                         SqlCommand cmd = new SqlCommand(query, Con);
                         cmd.Parameters.AddWithValue("@SellerName", Username.Text);
                         cmd.Parameters.AddWithValue("@SellerPassword", Password.Text);
 
-                        // Execute the query and get the count
                         int result = (int)cmd.ExecuteScalar();
 
                         if (result == 1)
                         {
-                            SellerName = Username.Text; // Store the seller's name globally
+                            SellerName = Username.Text; 
                             SellingForm selling = new SellingForm();
                             selling.Show();
-                            this.Hide(); // Hide the current form
+                            this.Hide(); 
                         }
                         else
                         {
                             MessageBox.Show("Wrong username or password");
                         }
 
-                        Con.Close(); // Close the connection
+                        Con.Close(); 
                     }
 
 
@@ -99,6 +100,11 @@ namespace SuperMarket_Management
         }
 
         private void Username_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectRole_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
         }

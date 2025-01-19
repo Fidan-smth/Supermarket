@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SellerForm));
+            this.seller_panel1 = new System.Windows.Forms.Panel();
             this.SellerPassword = new System.Windows.Forms.TextBox();
             this.Seller_dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.delete_button7 = new System.Windows.Forms.Button();
+            this.edit_button6 = new System.Windows.Forms.Button();
+            this.add_button4 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.SellerID = new System.Windows.Forms.TextBox();
             this.SellerPhone = new System.Windows.Forms.TextBox();
@@ -44,36 +47,38 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.exit_button5 = new System.Windows.Forms.Button();
+            this.category_button2 = new System.Windows.Forms.Button();
+            this.products_button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.seller_panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Seller_dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // seller_panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.ForestGreen;
-            this.panel1.Controls.Add(this.SellerPassword);
-            this.panel1.Controls.Add(this.Seller_dataGridView1);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.SellerID);
-            this.panel1.Controls.Add(this.SellerPhone);
-            this.panel1.Controls.Add(this.SellerName);
-            this.panel1.Controls.Add(this.SellerAge);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(204, 47);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(880, 625);
-            this.panel1.TabIndex = 1;
+            this.seller_panel1.BackColor = System.Drawing.Color.ForestGreen;
+            this.seller_panel1.Controls.Add(this.SellerPassword);
+            this.seller_panel1.Controls.Add(this.Seller_dataGridView1);
+            this.seller_panel1.Controls.Add(this.delete_button7);
+            this.seller_panel1.Controls.Add(this.edit_button6);
+            this.seller_panel1.Controls.Add(this.add_button4);
+            this.seller_panel1.Controls.Add(this.label6);
+            this.seller_panel1.Controls.Add(this.SellerID);
+            this.seller_panel1.Controls.Add(this.SellerPhone);
+            this.seller_panel1.Controls.Add(this.SellerName);
+            this.seller_panel1.Controls.Add(this.SellerAge);
+            this.seller_panel1.Controls.Add(this.label5);
+            this.seller_panel1.Controls.Add(this.label4);
+            this.seller_panel1.Controls.Add(this.label3);
+            this.seller_panel1.Controls.Add(this.label1);
+            this.seller_panel1.Controls.Add(this.label2);
+            this.seller_panel1.Location = new System.Drawing.Point(204, 47);
+            this.seller_panel1.Name = "seller_panel1";
+            this.seller_panel1.Size = new System.Drawing.Size(998, 625);
+            this.seller_panel1.TabIndex = 1;
             // 
             // SellerPassword
             // 
@@ -86,61 +91,78 @@
             // Seller_dataGridView1
             // 
             this.Seller_dataGridView1.AllowUserToOrderColumns = true;
-            this.Seller_dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.Seller_dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Seller_dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.Seller_dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Seller_dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.Seller_dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.Seller_dataGridView1.Location = new System.Drawing.Point(435, 112);
+            this.Seller_dataGridView1.Location = new System.Drawing.Point(407, 112);
             this.Seller_dataGridView1.Name = "Seller_dataGridView1";
+            this.Seller_dataGridView1.RowHeadersVisible = false;
             this.Seller_dataGridView1.RowHeadersWidth = 51;
             this.Seller_dataGridView1.RowTemplate.Height = 24;
-            this.Seller_dataGridView1.Size = new System.Drawing.Size(433, 462);
+            this.Seller_dataGridView1.Size = new System.Drawing.Size(563, 462);
             this.Seller_dataGridView1.TabIndex = 16;
             this.Seller_dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // button7
+            // delete_button7
             // 
-            this.button7.BackColor = System.Drawing.Color.White;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button7.Location = new System.Drawing.Point(261, 398);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(100, 43);
-            this.button7.TabIndex = 15;
-            this.button7.Text = "DELETE";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.delete_button7.BackColor = System.Drawing.Color.White;
+            this.delete_button7.FlatAppearance.BorderSize = 0;
+            this.delete_button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete_button7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_button7.ForeColor = System.Drawing.Color.ForestGreen;
+            this.delete_button7.Location = new System.Drawing.Point(261, 398);
+            this.delete_button7.Name = "delete_button7";
+            this.delete_button7.Size = new System.Drawing.Size(115, 43);
+            this.delete_button7.TabIndex = 15;
+            this.delete_button7.Text = "DELETE";
+            this.delete_button7.UseVisualStyleBackColor = false;
+            this.delete_button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button6
+            // edit_button6
             // 
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button6.Location = new System.Drawing.Point(142, 398);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 43);
-            this.button6.TabIndex = 14;
-            this.button6.Text = "EDIT";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.edit_button6.BackColor = System.Drawing.Color.White;
+            this.edit_button6.FlatAppearance.BorderSize = 0;
+            this.edit_button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.edit_button6.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.edit_button6.ForeColor = System.Drawing.Color.ForestGreen;
+            this.edit_button6.Location = new System.Drawing.Point(142, 398);
+            this.edit_button6.Name = "edit_button6";
+            this.edit_button6.Size = new System.Drawing.Size(100, 43);
+            this.edit_button6.TabIndex = 14;
+            this.edit_button6.Text = "EDIT";
+            this.edit_button6.UseVisualStyleBackColor = false;
+            this.edit_button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button4
+            // add_button4
             // 
-            this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button4.Location = new System.Drawing.Point(23, 398);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 43);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "ADD";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.add_button4.BackColor = System.Drawing.Color.White;
+            this.add_button4.FlatAppearance.BorderSize = 0;
+            this.add_button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.add_button4.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.add_button4.ForeColor = System.Drawing.Color.ForestGreen;
+            this.add_button4.Location = new System.Drawing.Point(23, 398);
+            this.add_button4.Name = "add_button4";
+            this.add_button4.Size = new System.Drawing.Size(100, 43);
+            this.add_button4.TabIndex = 5;
+            this.add_button4.Text = "ADD";
+            this.add_button4.UseVisualStyleBackColor = false;
+            this.add_button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label6
             // 
@@ -234,84 +256,97 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(321, 19);
+            this.label2.Location = new System.Drawing.Point(401, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 34);
             this.label2.TabIndex = 1;
             this.label2.Text = "Manage Sellers";
             // 
-            // button5
+            // exit_button5
             // 
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button5.Location = new System.Drawing.Point(1005, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(77, 35);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "X";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.exit_button5.FlatAppearance.BorderSize = 0;
+            this.exit_button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exit_button5.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exit_button5.ForeColor = System.Drawing.Color.ForestGreen;
+            this.exit_button5.Location = new System.Drawing.Point(1125, 6);
+            this.exit_button5.Name = "exit_button5";
+            this.exit_button5.Size = new System.Drawing.Size(77, 35);
+            this.exit_button5.TabIndex = 5;
+            this.exit_button5.Text = "X";
+            this.exit_button5.UseVisualStyleBackColor = true;
+            this.exit_button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button2
+            // category_button2
             // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button2.Location = new System.Drawing.Point(1, 280);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(170, 43);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Catagories";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.category_button2.FlatAppearance.BorderSize = 0;
+            this.category_button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.category_button2.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.category_button2.ForeColor = System.Drawing.Color.ForestGreen;
+            this.category_button2.Location = new System.Drawing.Point(1, 280);
+            this.category_button2.Name = "category_button2";
+            this.category_button2.Size = new System.Drawing.Size(170, 43);
+            this.category_button2.TabIndex = 7;
+            this.category_button2.Text = "Categories";
+            this.category_button2.UseVisualStyleBackColor = true;
+            this.category_button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // button1
+            // products_button1
             // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.ForestGreen;
-            this.button1.Location = new System.Drawing.Point(29, 231);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 43);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Products";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.products_button1.FlatAppearance.BorderSize = 0;
+            this.products_button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.products_button1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.products_button1.ForeColor = System.Drawing.Color.ForestGreen;
+            this.products_button1.Location = new System.Drawing.Point(17, 231);
+            this.products_button1.Name = "products_button1";
+            this.products_button1.Size = new System.Drawing.Size(154, 43);
+            this.products_button1.TabIndex = 6;
+            this.products_button1.Text = "Products";
+            this.products_button1.UseVisualStyleBackColor = true;
+            this.products_button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label7.Location = new System.Drawing.Point(25, 598);
+            this.label7.Location = new System.Drawing.Point(25, 616);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 23);
             this.label7.TabIndex = 34;
             this.label7.Text = "Logout";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(39, 47);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 104);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 35;
+            this.pictureBox1.TabStop = false;
+            // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 671);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1200, 671);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.category_button2);
+            this.Controls.Add(this.products_button1);
+            this.Controls.Add(this.exit_button5);
+            this.Controls.Add(this.seller_panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SellerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SellerForm";
             this.Load += new System.EventHandler(this.SellerForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.seller_panel1.ResumeLayout(false);
+            this.seller_panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Seller_dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,11 +354,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel seller_panel1;
         private System.Windows.Forms.DataGridView Seller_dataGridView1;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button delete_button7;
+        private System.Windows.Forms.Button edit_button6;
+        private System.Windows.Forms.Button add_button4;
         private System.Windows.Forms.TextBox SellerID;
         private System.Windows.Forms.TextBox SellerPhone;
         private System.Windows.Forms.TextBox SellerName;
@@ -333,11 +368,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button exit_button5;
         private System.Windows.Forms.TextBox SellerPassword;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button category_button2;
+        private System.Windows.Forms.Button products_button1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

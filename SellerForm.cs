@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using SuperMarket_Management;
 namespace Supermarket
 {
     public partial class SellerForm : Form
@@ -18,14 +18,38 @@ namespace Supermarket
             InitializeComponent();
         }
         SqlConnection Con = new SqlConnection(@"Data Source=MSI\SQLEXPRESS;Initial Catalog=Supermarket;Integrated Security=True");
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            SellerID.Text = Seller_dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-            SellerName.Text = Seller_dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            SellerAge.Text = Seller_dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-            SellerPhone.Text = Seller_dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
-            SellerPassword.Text = Seller_dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+            SellerID.Text = Seller_dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            SellerName.Text = Seller_dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            SellerAge.Text = Seller_dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            SellerPhone.Text = Seller_dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            SellerPassword.Text = Seller_dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
+
+        private void populate()
+        {
+            try
+            {
+                Con.Open();
+                string query = "SELECT * FROM SellerTable";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+                Seller_dataGridView1.DataSource = ds.Tables[0]; 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -43,13 +67,13 @@ namespace Supermarket
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Seller deleted succesfully!");
                     Con.Close();
-                    // populate();
+                    populate();
                     SellerID.Text = "";
                     SellerName.Text = "";
                     SellerPassword.Text = "";
                     SellerPhone.Text = "";
                     SellerAge.Text = "";
-
+                    
                 }
             }
             catch (Exception ex)
@@ -60,30 +84,54 @@ namespace Supermarket
 
         private void SellerForm_Load(object sender, EventArgs e)
         {
-           
+            populate();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             try
             {
-                Con.Open();
-                string query = "insert into SellerTable values(" + SellerID.Text + ", '" + SellerName.Text + "'," + SellerAge.Text + "," + SellerPhone.Text + " ,'" + SellerPassword.Text+ "')";
-                SqlCommand cmd = new SqlCommand(query, Con);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Seller added succesfully!");
-                Con.Close();
-                //populate();
-                SellerID.Text = "";
-                SellerName.Text = "";
-                SellerPassword.Text = "";
-                SellerPhone.Text = "";
-                SellerAge.Text = "";
+                if (string.IsNullOrWhiteSpace(SellerName.Text) ||string.IsNullOrWhiteSpace(SellerAge.Text) ||
+                    string.IsNullOrWhiteSpace(SellerPhone.Text) || string.IsNullOrWhiteSpace(SellerPassword.Text))
+                {
+                    MessageBox.Show("Missing information");
+                }
+                else
+                {
+                    Con.Open();
+                    string query = "INSERT INTO SellerTable (SellerName, SellerAge, SellerPhone, SellerPassword) " +
+                                   "VALUES (@SellerName, @SellerAge, @SellerPhone, @SellerPassword)";
+
+                    SqlCommand cmd = new SqlCommand(query, Con);
+
+                    cmd.Parameters.AddWithValue("@SellerName", SellerName.Text);
+                    cmd.Parameters.AddWithValue("@SellerAge", int.Parse(SellerAge.Text));
+                    cmd.Parameters.AddWithValue("@SellerPhone", SellerPhone.Text);
+                    cmd.Parameters.AddWithValue("@SellerPassword", SellerPassword.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Seller added successfully!");
+
+                    Con.Close();
+                    populate();
+
+                    SellerID.Text = "";
+                    SellerName.Text = "";
+                    SellerPassword.Text = "";
+                    SellerPhone.Text = "";
+                    SellerAge.Text = "";
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid input format. Please enter valid values.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -104,31 +152,41 @@ namespace Supermarket
         {
             try
             {
-                if (SellerID.Text == "" || SellerName.Text == "" || SellerAge.Text == "" || SellerPassword.Text == ""|| SellerPhone.Text=="")
+                if (string.IsNullOrWhiteSpace(SellerID.Text) ||string.IsNullOrWhiteSpace(SellerName.Text) ||
+                    string.IsNullOrWhiteSpace(SellerAge.Text) || string.IsNullOrWhiteSpace(SellerPassword.Text) 
+                    ||string.IsNullOrWhiteSpace(SellerPhone.Text))
                 {
                     MessageBox.Show("Missing information");
                 }
                 else
                 {
                     Con.Open();
-                    string query = "UPDATE SellerTable " +
-                "SET SellerName = '" + SellerName.Text + "', " +
-                "SellerAge = '" + SellerAge.Text + "', " +
-                "SellerPassword = '" + SellerPassword.Text + "', " +
-                "SellerPhone = '" + SellerPhone.Text + "' " +
-                "WHERE SellerID = '" + SellerID.Text + "';";
+
+                    string query = "UPDATE SellerTable " +"SET SellerName = @SellerName, " +"SellerAge = @SellerAge, " 
+                                   +"SellerPassword = @SellerPassword, " + "SellerPhone = @SellerPhone " +"WHERE SellerID = @SellerID";
 
                     SqlCommand cmd = new SqlCommand(query, Con);
+
+                    cmd.Parameters.AddWithValue("@SellerID", int.Parse(SellerID.Text));
+                    cmd.Parameters.AddWithValue("@SellerName", SellerName.Text);
+                    cmd.Parameters.AddWithValue("@SellerAge", int.Parse(SellerAge.Text));
+                    cmd.Parameters.AddWithValue("@SellerPassword", SellerPassword.Text);
+                    cmd.Parameters.AddWithValue("@SellerPhone", SellerPhone.Text);
+
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Seller succesfully updated!");
+
+                    MessageBox.Show("Seller successfully updated!");
+
                     Con.Close();
-                    //populate();
+                    populate();
+
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -145,46 +203,17 @@ namespace Supermarket
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-
+            CategoryForm cat = new CategoryForm();
+            cat.Show();
+            this.Hide();
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
-            Form1 log = new Form1();
+            LoginForm log = new LoginForm();
             log.Show();
             this.Hide();
         }
-        /* private void populate()
-{
-// Open the database connection
-Con.Open();
-
-// Query to select all records from the SellerTable
-string query = "SELECT * FROM SellerTable";
-
-// Create a SqlDataAdapter to fetch the data
-SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-
-// Create a SqlCommandBuilder for automatically generating SQL commands
-SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-
-// Fill the data into a DataSet
-var ds = new DataSet();
-adapter.Fill(ds);
-
-// Bind the data to the DataGridView
-Seller_dataGridView1.DataSource = ds.Tables[0];
-
-// Close the database connection
-Con.Close();
-}
-private void Form_Load(object sender, EventArgs e)
-{
-populate();
-}
-*/
-
-
 
     }
 }

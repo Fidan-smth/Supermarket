@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using SuperMarket_Management;
 namespace Supermarket
 {
     public partial class CategoryForm : Form
@@ -17,6 +18,7 @@ namespace Supermarket
             InitializeComponent();
         }
         SqlConnection Con = new SqlConnection(@"Data Source=MSI\SQLEXPRESS;Initial Catalog=Supermarket;Integrated Security=True");
+
         private void CategoryID_TextChanged(object sender, EventArgs e)
         {
 
@@ -29,19 +31,45 @@ namespace Supermarket
 
         private void button4_Click(object sender, EventArgs e)
         {
+
             try
             {
-                Con.Open();
-                string query = "insert into CategoryTable values(" + CategoryID.Text + ", '" + CategoryName.Text + "','" + CategoryDescription.Text + "' )";
-                SqlCommand cmd = new SqlCommand(query, Con);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Category added succesfully!");
-                Con.Close();
-                populate();
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                if (string.IsNullOrWhiteSpace(CategoryName.Text) ||string.IsNullOrWhiteSpace(CategoryDescription.Text))
+                {
+                    MessageBox.Show("Missing information");
+                }
+                else
+                {
+                    Con.Open();
+
+                    string query = "INSERT INTO CategoryTable (CategoryName, CategoryDescription) " +
+                                   "VALUES (@CategoryName, @CategoryDescription)";
+
+                    SqlCommand cmd = new SqlCommand(query, Con);
+
+                    cmd.Parameters.AddWithValue("@CategoryName", CategoryName.Text);
+                    cmd.Parameters.AddWithValue("@CategoryDescription", CategoryDescription.Text);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Category added successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add category.");
+                    }
+
+                    Con.Close();
+                    populate(); 
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
         }
         private void populate()
         {
@@ -57,9 +85,10 @@ namespace Supermarket
 
         private void Category_dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            CategoryID.Text = Category_dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-            CategoryName.Text = Category_dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            CategoryDescription.Text = Category_dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+            
+            CategoryID.Text = Category_dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            CategoryName.Text = Category_dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            CategoryDescription.Text = Category_dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -72,7 +101,7 @@ namespace Supermarket
                 }else
                 {
                     Con.Open();
-                    string query = "delete from Categorytable where CatagoryID=" + CategoryID.Text + "";
+                    string query = "delete from CategoryTable where CategoryID=" + CategoryID.Text + "";
                     SqlCommand cmd = new SqlCommand(query, Con);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Category deleted succesfully!");                   
@@ -89,26 +118,45 @@ namespace Supermarket
         {
             try
             {
-                if (CategoryID.Text == "" || CategoryDescription.Text==""|| CategoryName.Text=="")
+                if (string.IsNullOrWhiteSpace(CategoryID.Text) ||string.IsNullOrWhiteSpace(CategoryDescription.Text) ||string.IsNullOrWhiteSpace(CategoryName.Text))
                 {
                     MessageBox.Show("Missing information");
+                }
+                else if (!int.TryParse(CategoryID.Text, out int categoryId))
+                {
+                    MessageBox.Show("Invalid Category ID. Please enter a valid number.");
                 }
                 else
                 {
                     Con.Open();
-                    string query = "update Categorytable set CategoryName='" +CategoryName.Text+"', CategoryDescription='"+CategoryDescription.Text+"' where CatID ="+CategoryID.Text+";";
+                    string query = "UPDATE CategoryTable SET CategoryName = @CategoryName, CategoryDescription = @CategoryDescription WHERE CategoryID = @CategoryID";
 
                     SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Category succesfully updated!");
+
+                    cmd.Parameters.AddWithValue("@CategoryID", categoryId);
+                    cmd.Parameters.AddWithValue("@CategoryName", CategoryName.Text);
+                    cmd.Parameters.AddWithValue("@CategoryDescription", CategoryDescription.Text);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Category successfully updated!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No category found with the provided ID.");
+                    }
+
                     Con.Close();
-                    populate();
+                    populate();  
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -140,7 +188,9 @@ namespace Supermarket
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-
+            SellerForm sel = new SellerForm();
+            sel.Show();
+            this.Hide();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -153,8 +203,13 @@ namespace Supermarket
         private void label7_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form1 login = new Form1();
+            LoginForm login = new LoginForm();
             login.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
