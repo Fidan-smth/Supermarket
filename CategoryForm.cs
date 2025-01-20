@@ -23,13 +23,24 @@ namespace Supermarket
         {
 
         }
+        private void populate() // this method helps to show CategoryTable data in the dataGridView1
+        {
+            Con.Open();
+            string query = "select * from CategoryTable";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            var ds = new DataSet();
+            adapter.Fill(ds);
+            Category_dataGridView1.DataSource = ds.Tables[0];
+            Con.Close();
+        }
 
         private void CategoryForm_Load(object sender, EventArgs e)
         {
             populate();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) // handles 'add' button click
         {
 
             try
@@ -71,17 +82,6 @@ namespace Supermarket
             }
 
         }
-        private void populate()
-        {
-            Con.Open();
-            string query = "select * from CategoryTable";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            var ds = new DataSet();
-            adapter.Fill(ds);
-            Category_dataGridView1.DataSource = ds.Tables[0];
-            Con.Close();
-        }
 
         private void Category_dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -91,7 +91,7 @@ namespace Supermarket
             CategoryDescription.Text = Category_dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e) //handles 'delete' button click
         {
             try
             {
@@ -107,6 +107,9 @@ namespace Supermarket
                     MessageBox.Show("Category deleted succesfully!");                   
                     Con.Close();
                     populate();
+                    CategoryID.Text = "";
+                    CategoryName.Text = "";
+                    CategoryDescription.Text = "";
                 }
             }catch( Exception ex ) 
             {
@@ -114,7 +117,7 @@ namespace Supermarket
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) // handles 'edit' button click
         {
             try
             {

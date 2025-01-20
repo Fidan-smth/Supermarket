@@ -19,9 +19,7 @@ namespace Supermarket
         }
         SqlConnection Con = new SqlConnection(@"Data Source=MSI\SQLEXPRESS;Initial Catalog=Supermarket;Integrated Security=True");
 
-
-
-        private void populate()
+        private void populate() // populates the products data grid from db
         {
             Con.Open();
             string query = "select ProductName,ProductPrice, ProductQuantity from ProductTable";
@@ -32,7 +30,7 @@ namespace Supermarket
             Product2_dataGridView2.DataSource = ds.Tables[0];
             Con.Close();
         }
-        private void populatebills()
+        private void populatebills() // populates the bill data grid from db
         {
             Con.Open();
             string query = "select * from BillTable";
@@ -41,6 +39,19 @@ namespace Supermarket
             var ds = new DataSet();
             adapter.Fill(ds);
             Bills_dataGridView1.DataSource = ds.Tables[0];
+            Con.Close();
+        }
+        private void fillcombo() // fills combo box with the categories from db
+        {
+            Con.Open();
+            SqlCommand cmd = new SqlCommand("select CategoryName from CategoryTable", Con);
+            SqlDataReader rdr;
+            rdr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CategoryName", typeof(string));
+            dt.Load(rdr);
+            selectcategory_comboBox2.ValueMember = "CategoryName";
+            selectcategory_comboBox2.DataSource = dt;
             Con.Close();
         }
 
@@ -54,11 +65,6 @@ namespace Supermarket
 
         private void Product2_dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            /* 
-                 ProdName.Text = Product2_dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
-                 ProdPrice.Text = Product2_dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
-                 ProdQuantity.Text = Product2_dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString();
-            */
             ProdName.Text = Product2_dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
 
         }
@@ -141,11 +147,8 @@ namespace Supermarket
                 if (row.IsNewRow) continue; 
 
                 e.Graphics.DrawString("Bill ID: " + row.Cells[0].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(leftMargin, yPos));
-
                 e.Graphics.DrawString("Seller Name: " + row.Cells[1].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(leftMargin, yPos + 30));
-
                 e.Graphics.DrawString("Date: " + row.Cells[2].Value.ToString(),new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(leftMargin, yPos + 60));
-
                 e.Graphics.DrawString("Total Amount: " + row.Cells[3].Value.ToString(),new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(leftMargin, yPos + 90));
 
                 yPos += rowHeight + 120;  
@@ -159,9 +162,6 @@ namespace Supermarket
 
             e.HasMorePages = false;
         }
-
-
-
         private void button6_Click(object sender, EventArgs e)
         {
            
@@ -177,32 +177,20 @@ namespace Supermarket
             populate();
         }
 
-        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e) // it handles category selection and updates products according to category
         {
+           
             Con.Open();
-            string query = "select ProductName, ProductQuantity from ProductTable" + selectcategory_comboBox2.SelectedValue;
+            string query = "SELECT ProductName, ProductPrice, ProductQuantity FROM ProductTable WHERE ProductCategory = @Category";
             SqlDataAdapter sda = new SqlDataAdapter(query, Con);
+            sda.SelectCommand.Parameters.AddWithValue("@Category", selectcategory_comboBox2.SelectedValue.ToString());
             SqlCommandBuilder builder = new SqlCommandBuilder(sda);
             var ds = new DataSet();
             sda.Fill(ds);
             Product2_dataGridView2.DataSource = ds.Tables[0];
             Con.Close();
         }
-        private void fillcombo()
-        {
-            Con.Open();
-            SqlCommand cmd = new SqlCommand("select CategoryName from CategoryTable", Con);
-            SqlDataReader rdr;
-            rdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Columns.Add("CategoryName", typeof(string));
-            dt.Load(rdr);
-            //SelectCategory.ValueMember = "CategoryName";
-            //SelectCategory.DataSource = dt;
-            selectcategory_comboBox2.ValueMember = "CategoryName";
-            selectcategory_comboBox2.DataSource = dt;
-            Con.Close();
-        }
+        
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -235,6 +223,12 @@ namespace Supermarket
             }
         }
         int total2 = 0, n = 0;
+
+        private void Date_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (ProdName.Text == "" || ProdQuantity.Text == "")
@@ -284,7 +278,7 @@ namespace Supermarket
                             }
                         }
                     }
-
+                    // add product to order list
                     int total = Convert.ToInt32(price) * Convert.ToInt32(ProdQuantity.Text);
                     DataGridViewRow newRow = new DataGridViewRow();
                     newRow.CreateCells(Order_dataGridView1);

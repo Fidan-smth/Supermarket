@@ -30,28 +30,19 @@ namespace Supermarket
 
         private void populate()
         {
-            try
-            {
-                Con.Open();
-                string query = "SELECT * FROM SellerTable";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-                SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-                DataSet ds = new DataSet();
-                adapter.Fill(ds);
-                Seller_dataGridView1.DataSource = ds.Tables[0]; 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            finally
-            {
-                Con.Close();
-            }
+            Con.Open();
+            string query = "SELECT * FROM SellerTable";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds);
+            Seller_dataGridView1.DataSource = ds.Tables[0];
+            Con.Close();
+
         }
 
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e)// handles 'delete' button click
         {
             try
             {
@@ -87,7 +78,7 @@ namespace Supermarket
             populate();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) //handles 'add' button click
         {
             try
             {
@@ -115,12 +106,6 @@ namespace Supermarket
 
                     Con.Close();
                     populate();
-
-                    SellerID.Text = "";
-                    SellerName.Text = "";
-                    SellerPassword.Text = "";
-                    SellerPhone.Text = "";
-                    SellerAge.Text = "";
                 }
             }
             catch (FormatException)
@@ -148,7 +133,7 @@ namespace Supermarket
             this.Hide();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)//handles 'edit' button click
         {
             try
             {

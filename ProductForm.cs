@@ -85,7 +85,7 @@ namespace Supermarket
             populate(); 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) // handles 'add' button click
         {
 
             try
@@ -121,7 +121,7 @@ namespace Supermarket
 
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e) // handles 'delete' button click
         {
             try
             {
@@ -138,6 +138,10 @@ namespace Supermarket
                     MessageBox.Show("Product deleted succesfully!");
                     Con.Close();
                     populate();
+                    ProdID.Text = "";
+                    ProdName.Text = "";
+                    ProdPrice.Text = "";
+                    ProdQuantity.Text = "";
                 }
             }
             catch (Exception ex)
@@ -158,7 +162,7 @@ namespace Supermarket
             this.Hide();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) // handles 'edit' button clcik
         {
             try
             {
